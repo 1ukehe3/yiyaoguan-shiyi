@@ -60,11 +60,7 @@ function generateVerificationCode(digits) {
 async function sendVerificationCode(phone,code) {
       // 构建发送验证码的 API 请求参数
       
-      const accessKeyId = 'LTAI5tP6JhX1Kpg8wKpS3iEZ';
-    const accessKeySecret = 'dqX96HRUcxBQy3Bqiso11E4rppQfAN';
-    const regionId = 'cn-hangzhou'; // 替换为你的短信服务所在的地域
-    const signName = '阿里云短信测试'; // 替换为你的短信签名
-    const templateCode = 'SMS_154950909'; // 替换为你的短信模板 CODE
+
      
   
       const client = new Core({
