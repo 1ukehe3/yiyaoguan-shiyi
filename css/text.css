@@ -1,0 +1,283 @@
+.liuyaocheguacontent p{
+display: none;
+}
+
+
+#carouselExampleCaptions{
+	margin-top: 200px;
+	height:500px;
+	margin-left:10.25rem;
+	margin-right:10.25rem;
+	z-index:-1;
+}
+
+#nav-contact{
+	font-size:0.5rem;
+	color:#F7F7F7;
+}
+#imge{
+	width: 90px;
+	height:90px;
+	padding: 0px;
+	margin-left:10px;
+}
+
+
+#navbarSupportedContent{
+
+  position:fixed;
+background-color: #fff;
+  width:100%;
+ min-height: 80px;
+top: 25px;
+
+}
+
+#navbarSupportedContent ul{
+  
+
+  display:inline-block;
+padding-left: 0px;
+height: 60px;
+width: 100%;
+
+  padding-top: 20px;
+ margin-bottom:0px;
+ background-color: #fff;
+ 
+}
+
+
+@media (max-width:1000px) {
+  #navbarSupportedContent  ul li{
+    padding:10px 0;
+    
+  }
+ 
+  #navbarSupportedContent  ul{
+    display: flex;
+    flex-direction: column;
+
+   align-items: flex-start;
+  }
+  nav form{
+    justify-content: center;
+  }
+}
+.container {
+background-color: #fff59d;
+display:block;
+position:relative;
+ width: 100px;
+ height: 0px;
+top:-25px;
+  left: 80px;
+right:-200px;
+  bottom: 0;
+ z-index: 0;
+ 
+}
+.container .search {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0px;
+  bottom: 0px;
+  left: 0;
+  width: 40px;
+  height: 40px;
+ 
+  border-radius: 50%;
+  transition: all 1s;
+  z-index: 4;
+  box-shadow:none;
+}
+.container .search:hover {
+  cursor: pointer;
+}
+.container .search::before {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top: 15px;
+  right: 0;
+  bottom: 0;
+  left: 15px;
+  width: 10px;
+  height: 2px;
+  background: rgb(102, 100, 100);
+  transform: rotate(45deg);
+  transition: all 0.5s;
+}
+.container .search::after {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top: -5px;
+  right: 0;
+  bottom: 0;
+  left: -5px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgb(102, 100, 100);
+  transition: all 0.5s;
+}
+.container #inputs {
+  font-family: "Inconsolata", monospace;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  outline: none;
+  border: none;
+  background: rgb(243, 239, 239);
+  color: rgb(37, 37, 37);
+  text-shadow: 0 0 6px rgb(175, 175, 175);
+  padding: 0 80px 0 20px;
+  border-radius: 30px;
+  box-shadow: 0 0 16px 0 rgb(184, 183, 183), 0 20px 25px 0 rgba(255, 255, 255, 0.2);
+  transition: all 1s;
+  opacity: 0;
+  z-index: 5;
+  font-weight: bolder;
+  letter-spacing: 0.05em;
+}
+.container #inputs:hover {
+  cursor: pointer;
+}
+.container #inputs:focus {
+  right: 200px;
+  width: 450px;
+  opacity: 1;
+  cursor: text;
+}
+.container #inputs:focus ~ .search {
+  right: -200px;
+  
+  z-index: 6;
+}
+.container #inputs:focus ~ .search::before {
+  top: 0;
+  left: 0;
+  width: 18px;
+}
+.container #inputs:focus ~ .search::after {
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  border: none;
+  background:rgb(102, 100, 100);;
+  border-radius: 0%;
+  transform: rotate(-45deg);
+}
+.container #inputs::placeholder {
+  color: white;
+  opacity: 0.5;
+  font-weight: bolder;
+}
+
+
+
+  nav span {
+
+  display: inline-block;
+margin-top: -10px;
+    padding:0 30px;	
+    padding-top: 0px;
+    padding-bottom: 29px;
+    color:#333;
+    font-size:1.06rem;
+    line-height: 0px;
+    text-decoration:none;
+ 
+  
+   
+  }
+
+  #navbarSupportedContent ul li:hover >span{
+
+  border-bottom: cornflowerblue 2px solid;
+  }
+  
+
+
+
+  #logo{
+  display: none;
+  
+  }
+  #logos{
+
+    width: 170px;
+    height: 170px;
+  }
+  #header {
+    width: 100%;
+    background-color: #333;
+    height: 25px;
+    position:fixed;
+   top: 0;
+    left:0;
+   z-index: 1;
+    
+  }
+
+  #header{
+    z-index: 0;
+  }
+#header ul   {
+  display: flex;
+ justify-content: flex-end;
+ align-items:center;
+ margin-top: 3px;
+}
+#header ul li{
+  display:flex;
+margin: 0px;
+color:#fff;
+
+
+}
+#header ul li span{
+ 
+  font-size: 0.5rem;
+  margin: 0 5px;
+
+}
+#header ul li p{
+ 
+  font-weight: 300;
+  
+  font-size: 0.58rem;
+ margin-top: 0.05rem;
+ margin-right: 40px;
+}
+
+@media(max-width:600px) {
+  #header{
+    display: none;
+  }
+}
+ul{
+  list-style: none;
+  
+}
+.chajiancoin{
+  
+  width: 900px;
+  margin-top: -200px;
+}
+
+#lunbotus{
+  margin-top: 220px;
+
+margin-left: 150px;
+z-index: -10;
+
+}

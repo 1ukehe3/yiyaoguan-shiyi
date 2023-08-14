@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+    }
+
+    table {
+      
+      margin: 40px auto;
+      width: 80%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      
+      text-align: center;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+     border-top: 1px solid #ddd;
+    }
+ 
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .merged-cell {
+      border: none;
+    }
+    .merged-cell1 {
+      border-bottom: 1px solid #ddd;
+      border-top: none;
+    }
+    .merged-cell2 {
+      
+      border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    } 
+    .merged-cell3 {
+      
+      border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      border-right: none;
+    } 
+    .merged-cell4 {
+      
+      border-bottom: none;
+      border-top: none;
+      border-right: 1px solid #ddd;
+    } 
+    .merged-cell5 {
+      
+      border-right: none;
+      border-bottom: none;
+      border-top: 1px solid #ddd;
+    } 
+    .merged-cell6 {
+      
+      border-right: none;
+      border-top: none;
+      border-bottom: 1px solid #ddd;
+    } 
+  </style>
+
+
+
+
+
+</head>
+<body>
+  <h1>八字命理学分析</h1>
+  <!-- Add a Download Table Button -->
+ <!-- Add a button to trigger the PDF export -->
+ <button id="generatePdfBtn">生成PDF</button>     <button id="returnButton">返回</button>
+ <div id="resultContainer">
+  <table id="table1">
+    <tr>
+      
+      <th  colspan="2">缘主出生日期</th>
+      <th colspan="2">年柱(十神)(天干强弱)</th>
+      <th colspan="2">月柱(十神)(天干强弱)</th>
+      <th colspan="2">日柱(十神)(天干强弱)</th>
+      <th colspan="2">时柱(十神)(天干强弱)</th>
+    </tr>
+   
+    <tr>
+      <td class="merged-cell" >阴历：<%= bazi.lunarYear %>年<%= bazi.lunarMonthName %><%= bazi.lunarDayName %></td>
+      <td colspan="2"><%= bazi.GanZhiYear[0] %><%= yearRelation %></td>
+      <td colspan="2"><%= bazi.GanZhiMonth[0] %><%=monthRelation %></td>
+      <td colspan="2"><%=  bazi.GanZhiDay[0]%>（日主）</td>
+      <td colspan="2"><%= hourtiangandizhi[0] %><%= hourRelation %></td>
+     
+    </tr>
+    <tr>
+      <td class="merged-cell1">性别：<%= gender %></td>
+      <td colspan="2"><%=bazi.GanZhiYear[1]  %></td>
+      <td colspan="2"><%= bazi.GanZhiMonth[1]%></td>
+      <td colspan="2"><%= bazi.GanZhiDay[1]%></td>
+      <td colspan="2"><%= hourtiangandizhi[1] %></td>
+    </tr>
+    <tr>
+      <td class="merged-cell"><%=  %>本气</td>
+      <td colspan="2"><%= yeardizhicangdun[0]  %><%= yeardizhiRelation0  %><%= yearEarthBranches0 %></td>
+      <td colspan="2"><%= monthdizhicangdun[0]%><%= monthdizhiRelation0  %><%= monthEarthBranches0 %></td>
+      <td colspan="2"><%= daydizhicangdun[0]%><%= daydizhiRelation0  %><%= dayEarthBranches0 %></td>
+      <td colspan="2"><%= hourdizhicangdun[0] %><%= hourdizhiRelation0  %><%= hourEarthBranches0 %></td>
+    </tr>
+    <tr>
+      <td class="merged-cell"><%=  %>中气</td>
+      <td colspan="2"><%= yeardizhicangdun[1]  %><%= yeardizhiRelation1  %><%= yearEarthBranches1 %></td>
+      <td colspan="2"><%= monthdizhicangdun[1]%><%= monthdizhiRelation1  %><%= monthEarthBranches1 %></td>
+      <td colspan="2"><%= daydizhicangdun[1]%><%= daydizhiRelation1  %><%= dayEarthBranches1 %></td>
+      <td colspan="2"><%= hourdizhicangdun[1] %><%= hourdizhiRelation1  %><%= hourEarthBranches1 %></td>
+    </tr>
+    <tr>
+      <td class="merged-cell1"><%=  %>余气</td>
+      <td colspan="2"><%= yeardizhicangdun[2] %><%= yeardizhiRelation2  %><%= yearEarthBranches2 %></td>
+      <td colspan="2"><%= monthdizhicangdun[2]%><%= monthdizhiRelation2  %><%= monthEarthBranches2 %></td>
+      <td colspan="2"><%= daydizhicangdun[2]%><%= daydizhiRelation2  %><%= dayEarthBranches2 %></td>
+      <td colspan="2"><%= hourdizhicangdun[2] %><%= hourdizhiRelation2  %><%= hourEarthBranches2 %></td>
+    </tr>
+    
+    <tr id="shensharesult">
+     
+    
+    </tr>
+    <tr id="shensharesult1">
+     
+    
+    </tr>
+  </table>
+
+  <table id="fiveElementsTable">
+    <tr>
+      <th >缘主八字五行(月令四时)</th>
+      <th colspan="2">年柱</th>
+      <th colspan="2">月柱</th>
+      <th colspan="2">日柱</th>
+      <th colspan="2">时柱</th>
+    </tr>
+   
+    <tr>
+      <td class="merged-cell">阴历：<%= bazi.lunarYear %>年<%= bazi.lunarMonthName %><%= bazi.lunarDayName %><%=  %></td>
+      <td colspan="2"><%= yearwuxings[0][0] %><%= yearwuxingsishiyongshi0 %></td>
+      <td colspan="2"><%= monthwuxings[0][0] %><%= monthwuxingsishiyongshi0 %></td>
+      <td colspan="2" id="rizhuwuxing"><%=  daywuxings[0][0]%><%= daywuxingsishiyongshi0 %></td>
+      <td colspan="2"><%= hourwuxings[0] [0]%><%= hourwuxingsishiyongshi0 %></td>
+     
+    </tr>
+    <tr>
+      <td class="merged-cell1">生肖：<%= bazi.zodiac %></td>
+      <td colspan="2"><%=yearwuxings[0][1] %><%= yearwuxingsishiyongshi1 %></td>
+      <td colspan="2"><%= monthwuxings[0][1]%><%= monthwuxingsishiyongshi1 %></td>
+      <td colspan="2"><%= daywuxings[0][1]%><%= daywuxingsishiyongshi1 %></td>
+      <td colspan="2"><%= hourwuxings[0][1] %><%= hourwuxingsishiyongshi1 %></td>
+    </tr>
+    <tr>
+      <td class="merged-cell" >季节：<%= season %></td>
+      <td colspan="2"><%=yeardizhicangdunwuxing0 %><%=yeardizhiwuxingsishiyongshi0 %></td>
+      <td colspan="2"><%= monthdizhicangdunwuxing0%><%=monthdizhiwuxingsishiyongshi0 %></td>
+      <td colspan="2"><%= daydizhicangdunwuxing0%><%=daydizhiwuxingsishiyongshi0 %></td>
+      <td colspan="2"><%= hourdizhicangdunwuxing0 %><%=hourdizhiwuxingsishiyongshi0 %></td>
+    </tr>
+    <tr>
+      <td class="merged-cell"><%= %></td>
+      <td colspan="2"><%=yeardizhicangdunwuxing1 %><%=yeardizhiwuxingsishiyongshi1 %></td>
+      <td colspan="2"><%= monthdizhicangdunwuxing1%><%=monthdizhiwuxingsishiyongshi1 %></td>
+      <td colspan="2"><%= daydizhicangdunwuxing1%><%=daydizhiwuxingsishiyongshi1 %></td>
+      <td colspan="2"><%= hourdizhicangdunwuxing1 %><%=hourdizhiwuxingsishiyongshi1 %></td>
+    </tr>
+    <tr>
+      <td class="merged-cell1"><% %></td>
+      <td colspan="2"><%=yeardizhicangdunwuxing2 %><%=yeardizhiwuxingsishiyongshi2 %></td>
+      <td colspan="2"><%= monthdizhicangdunwuxing2%><%=monthdizhiwuxingsishiyongshi2 %></td>
+      <td colspan="2"><%= daydizhicangdunwuxing2%><%=daydizhiwuxingsishiyongshi2 %></td>
+      <td colspan="2"><%= hourdizhicangdunwuxing2 %><%=hourdizhiwuxingsishiyongshi2 %></td>
+    </tr>
+  </table>
+ <!-- 第一个表格 -->
+<div id="resultContainer1"></div>
+
+<!-- 第二个表格 -->
+<div id="resultContainer2"></div>
+ </div>
+</body>
+
+<script >
+   var returnButton = document.getElementById("returnButton");
+
+// 添加点击事件监听器
+returnButton.addEventListener("click", function() {
+    // 执行返回操作，导航到指定网页地址
+    window.location.href = "http://localhost:3001/";
+});
+
+const puppeteer = require('puppeteer');
+
+async function generatePDF() {
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+
+  // 将 'http://localhost:3001/' 替换为你的网页的URL
+  await page.goto('http://localhost:3001/result?year=1902&month=4&day=5&hour=4&gender=%E5%A5%B3');
+
+  // 如有需要，添加必要的等待以确保元素加载完毕
+  // 例如：await page.waitForSelector('#resultContainer');
+
+  // 生成PDF并保存为文件
+  const pdfFilePath = 'example.pdf';
+  await page.pdf({ path: pdfFilePath });
+
+  await browser.close();
+
+  return pdfFilePath;
+}
+
+module.exports = generatePDF;
+
+</script>
+<script>
+  document.getElementById('generatePdfBtn').addEventListener('click', async () => {
+    try {
+      const response = await fetch('/generate-pdf');
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+
+        // 创建一个链接元素来触发下载
+        const downloadLink = document.createElement('a');
+        downloadLink.href = url;
+        downloadLink.download = '八字命理学分析.pdf';
+        downloadLink.click();
+      } else {
+        console.error('生成PDF出错');
+      }
+    } catch (error) {
+      console.error('生成PDF出错：', error);
+    }
+  });
+</script>
+<script>
+
+
+
+
+
+
+
+function yongshenquyong(geju,yuelingzhitoubutou,sumtongfang,sumyifang){
+  const dayWuxing = "<%= daywuxings[0][0]%>";
+	const otherWuxing =yuelingzhitoubutou
+  
+let mingjuduo=''
+  
+	
+	  if (otherWuxing.includes(dayWuxing)) {
+		 mingjuduo="比劫" ;
+	  } else if (isOvercoming(dayWuxing, otherWuxing)) {
+		mingjuduo="财星";
+	  } else if (isOvercoming(otherWuxing, dayWuxing)) {
+		mingjuduo='官杀';
+	  } else if (isGenerating(dayWuxing, otherWuxing)) {
+		mingjuduo='食伤';
+	  } else if (isGenerating(otherWuxing, dayWuxing)) {
+      mingjuduo="印星"
+	  }
+	
+	let  yongshen = [];
+const rizhuqiangruo=compareValue(sumtongfang,sumyifang)
+
+
+if (geju === '正官格' && rizhuqiangruo === '弱') {
+  switch (mingjuduo) {
+    case '财星':
+      yongshen = '比劫或印星';
+      break;
+    case '食伤':
+    case '官杀':
+      yongshen = '印星';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+} else if (geju === '正官格' && rizhuqiangruo === '强') {
+  switch (mingjuduo) {
+    case '比劫':
+    case '印星':
+      yongshen = '官星';
+      break;
+    case '印星':
+      yongshen = '财星';
+      break;
+    case '食伤':
+      yongshen = '财星';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+}
+if (geju === '七杀格' && rizhuqiangruo === '弱') {
+  switch (mingjuduo) {
+    case '财星':
+      yongshen = '比劫';
+      break;
+    case '食伤':
+    case '官杀':
+      yongshen = '印星';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+} else if (geju === '七杀格' && rizhuqiangruo === '强') {
+  switch (mingjuduo) {
+    case '比劫':
+  
+      yongshen = '七杀';
+      break;
+    case '印星':
+      yongshen = '财星';
+      break;
+    case '官杀':
+      yongshen = '食伤';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+}
+if ((geju === '正财格'||geju==="偏财格") && rizhuqiangruo === '弱') {
+  switch (mingjuduo) {
+    case '食伤':
+      yongshen = '印星';
+      break;
+    case '财星':
+    yongshen = '比劫';
+      break;
+    case '官杀':
+      yongshen = '印星';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+} else if ((geju === '正财格'||geju==="偏财格") && rizhuqiangruo === '强') {
+  switch (mingjuduo) {
+    case '比劫':
+      yongshen = '食伤、官杀';
+      break;
+    case '印星':
+      yongshen = '财星';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+}
+if ((geju === '正印格'||geju==="偏印格") && rizhuqiangruo === '弱') {
+  switch (mingjuduo) {
+    case '官杀':
+      yongshen = '印星';
+      break;
+    case '食伤':
+    yongshen = '印星';
+      break;
+    case '财星':
+      yongshen = '比劫';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+} else if ((geju === '正印格'||geju==="偏印格") && rizhuqiangruo === '强') {
+  switch (mingjuduo) {
+    case '比劫':
+   
+      yongshen = '官杀、食伤';
+      break;
+    case '印星':
+      yongshen = '财星';
+      break;
+    case '财星':
+      yongshen = '食伤、财星';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+}
+if (geju === '食神格' && rizhuqiangruo === '弱') {
+  switch (mingjuduo) {
+    case '官杀':
+      yongshen = '印星';
+      break;
+    case '财星':
+      yongshen = '比劫';
+      break;
+    case '食伤':
+   yongshen = '印星';
+   break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+} else if (geju === '食神格' && rizhuqiangruo === '强') {
+  switch (mingjuduo) {
+    case '印星':
+  
+      yongshen = '财星';
+      break;
+    case '比劫':
+      yongshen = '食伤';
+      break;
+    case '财星':
+      yongshen = '官杀';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+}
+if (geju === '伤官格' && rizhuqiangruo === '弱') {
+  switch (mingjuduo) {
+    case '财星':
+      yongshen = '比劫';
+      break;
+    
+    case '官杀':
+      yongshen = '印星';
+      break;
+    case '食伤':
+      yongshen = '印星';
+      break;
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+} else if (geju === '伤官格' && rizhuqiangruo === '强') {
+  switch (mingjuduo) {
+    case '比劫':
+  
+      yongshen = '官杀';
+      break;
+    case '印星':
+      yongshen = '财星';
+      break;
+ 
+    default:
+      // 其他情况的处理，如果有其他规则判断用神，可以在这里添加对应的逻辑
+      break;
+  }
+}
+return yongshen 
+}
+
+function findMostElement(data) {
+  let maxCount = 0;
+  let mostElement = '';
+
+  for (const element in data) {
+    if (data[element] > maxCount) {
+      maxCount = data[element];
+      mostElement = element;
+    }
+  }
+
+  return mostElement.split('(')[0]; // 只返回元素名称部分，去掉括号及其后面的内容
+}
+ 
+  function determineRelationshipyueling(yuelingzhitoutiangan, yuelingzhitouindex,yuelingzhitoubutou) {
+
+   
+
+    const yuelingzhitouwuxing={
+    0:"<%= monthdizhicangdunwuxing0%>",
+    1:"<%= monthdizhicangdunwuxing1%>",
+    2:"<%= monthdizhicangdunwuxing2%>",
+    '':yuelingzhitoubutou,
+  }
+
+	const dayWuxing = "<%= daywuxings[0][0]%>";
+	const otherWuxing =yuelingzhitouwuxing[yuelingzhitouindex]
+  const daytiangan = "<%=  bazi.GanZhiDay[0]%>"
+	const dayGender = getGender(daytiangan);
+	const otherGender = getGender(yuelingzhitoutiangan);
+  
+	if (dayWuxing && otherWuxing) {
+	  if (otherWuxing.includes(dayWuxing)) {
+		return dayGender === otherGender ? '建禄格' : '劫刃格';
+	  } else if (isOvercoming(dayWuxing, otherWuxing)) {
+		return dayGender === otherGender ? '偏财格' : '正财格';
+	  } else if (isOvercoming(otherWuxing, dayWuxing)) {
+		return dayGender === otherGender ? '七杀格' : '正官格';
+	  } else if (isGenerating(dayWuxing, otherWuxing)) {
+		return dayGender === otherGender ? '伤官格' : '食神格';
+	  } else if (isGenerating(otherWuxing, dayWuxing)) {
+		return dayGender === otherGender ? '偏印格' : '正印格';
+	  }
+	}
+	
+	return '';
+  }
+  
+  function determineRelationshipdayun(dayTiangan,tianGanshunpaiResult) {
+    const tianganList = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+const otherTianganArray = tianGanshunpaiResult.split(' ');
+const dayWuxing = getWuxing(dayTiangan);
+
+const dayGender = getGender(dayTiangan);
+
+  const results = []; // Array to store the results
+
+  for (const tiangan of otherTianganArray) {
+    if (tianganList.includes(tiangan)) {
+      const otherWuxing = getWuxing(tiangan);
+      const otherGender = getGender(tiangan);
+
+      if (dayWuxing && otherWuxing) {
+        if (otherWuxing.includes(dayWuxing)) {
+          results.push(dayGender === otherGender ? '比肩' : '劫财');
+        } else if (isOvercoming(dayWuxing, otherWuxing)) {
+          results.push(dayGender === otherGender ? '偏财' : '正财');
+        } else if (isOvercoming(otherWuxing, dayWuxing)) {
+          results.push(dayGender === otherGender ? '七杀' : '正官');
+        } else if (isGenerating(dayWuxing, otherWuxing)) {
+          results.push(dayGender === otherGender ? '伤官' : '食神');
+        } else if (isGenerating(otherWuxing, dayWuxing)) {
+          results.push(dayGender === otherGender ? '偏印' : '正印');
+        }
+      }
+    }
+  }
+
+  return results.join(" "); // Return the array of results
+}
+
+
+
+
+
+function getWuxing(tiangan) {
+	const wuxingMap = {
+	  '甲': '木',
+	  '乙': '木',
+	  '丙': '火',
+	  '丁': '火',
+	  '戊': '土',
+	  '己': '土',
+	  '庚': '金',
+	  '辛': '金',
+	  '壬': '水',
+	  '癸': '水',
+	};
+	return wuxingMap[tiangan];
+  }
+  
+  function getGender(tiangan) {
+	const yangTiangan = ['甲', '丙', '戊', '庚', '壬'];
+	return yangTiangan.includes(tiangan) ? '阳' : '阴';
+  }
+
+  
+  function hasCommonElement(str1, str2) {
+    const commonCharactersWithIndices = [];
+
+for (let i = 0; i < str1.length; i++) {
+    const char = str1[i];
+    if (str2.includes(char)) {
+        commonCharactersWithIndices.push([ char,  i ]);
+    }
+   
+}
+
+return  commonCharactersWithIndices.length === 0 ? [['','']] : commonCharactersWithIndices;
+
+
+}
+function countRelations(...relations) {
+  const counts = {};
+
+  for (const relation of relations) {
+    if (relation in counts) {
+      counts[relation]++;
+    } else {
+      counts[relation] = 1;
+    }
+  }
+
+  return counts;
+}
+
+function findMaxRelation(counts) {
+  let maxCount = 0;
+  let maxRelation = [];
+
+  for (const relation in counts) {
+    const count = counts[relation];
+    if (count > maxCount) {
+      maxCount = count;
+      maxRelation = [relation];
+    } else if (count === maxCount) {
+      maxRelation.push(relation);
+    }
+  }
+
+  return maxRelation;
+}
+
+
+  function isOvercoming(wuxing1, wuxing2) {
+	const overcomingMap = {
+	  '木': ['土'],
+	  '土': ['水'],
+	  '水': ['火'],
+	  '火': ['金'],
+	  '金': ['木'],
+	};
+   if(overcomingMap[wuxing1].includes(wuxing2)){
+    
+    return true
+      }
+      return false;;
+	
+  }
+  
+  function isGenerating(wuxing1, wuxing2) {
+  const generatingMap = {
+    '木': ['火'],
+    '火': ['土'],
+    '土': ['金'],
+    '金': ['水'],
+    '水': ['木'],
+  };
+
+  if (generatingMap[wuxing1].includes(wuxing2)) {
+    return true;
+  }
+
+  return false;
+}
+        function countFiveElements() {
+      const table = document.getElementById('fiveElementsTable');
+      
+      const cells = table.getElementsByTagName('td');
+
+      const fiveElementsCount = {
+        '金': 0,
+        '木': 0,
+        '火': 0,
+        '水': 0,
+        '土': 0
+      };
+      
+      const result=[]
+      const rows = table.getElementsByTagName('tr');
+      for (let i = 1; i < rows.length; i++) { // Start from 1 to skip header row
+        const cells = rows[i].getElementsByTagName('td');
+        for (let j = 0; j < cells.length; j++) {
+          const cellContent = cells[j].textContent.trim();
+          const element = extractElement(cellContent); // 使用提取函数获取五行属性
+
+          if (fiveElementsCount.hasOwnProperty(element)) {
+            fiveElementsCount[element]++;
+
+          }
+      
+        }
+        
+        }
+   
+
+      return fiveElementsCount;
+    }
+
+
+
+    function determineRelationship(fiveElementsCount) {
+
+
+  const rizhuwuxing = '<%=  daywuxings[0][0]%>';
+const result={
+                '生日主': 0,
+                '日主克': 0,
+                '同日主': 0,
+                '日主生': 0,
+                '克日主': 0
+}
+
+  for (const element in fiveElementsCount) {
+    const isGeneratingRiZhu = isGenerating(rizhuwuxing,element)
+    const isOvercomingRiZhu = isGenerating(element,rizhuwuxing)
+    const isGeneratingElement = isOvercoming(rizhuwuxing,element)
+    const isOvercomingElement = isOvercoming(element,rizhuwuxing)
+    const count = fiveElementsCount[element];
+ 
+    if (element.includes(rizhuwuxing)) {
+      fiveElementsCount[`${element}(同日主)`] = fiveElementsCount[element];
+      delete fiveElementsCount[element];
+      result['同日主']+= count;
+    } 
+else if (isGeneratingRiZhu) {
+      fiveElementsCount[`${element}(日主生)`] = fiveElementsCount[element];
+      delete fiveElementsCount[element];
+      result['日主生']+= count;
+    } else if (isGeneratingElement) {
+      fiveElementsCount[`${element}(日主克)`] = fiveElementsCount[element];
+      delete fiveElementsCount[element];
+      result['日主克']+= count;
+    } else if (isOvercomingRiZhu) {
+      fiveElementsCount[`${element}(生日主)`] = fiveElementsCount[element];
+      delete fiveElementsCount[element];
+      result['生日主']+= count;
+    } else if (isOvercomingElement) {
+      fiveElementsCount[`${element}(克日主)`] = fiveElementsCount[element];
+      delete fiveElementsCount[element];
+      result['克日主']+= count;
+    }
+  
+
+  }
+  const sumtongfang = result['生日主'] + result['同日主'];
+const sumyifang = result['克日主'] + result['日主克'] + result['日主生'];
+
+
+
+  return [fiveElementsCount,sumtongfang,sumyifang];
+}
+    // 提取括号外的内容
+    function extractElement(tdContent) {
+      const match = tdContent.match(/\([^)]*\)/g)
+      if (match) {
+        return tdContent.replace(/\([^)]*\)/g, '');
+      }
+      return '';
+    }
+    function compareValue(sumtongfang, sumyifang) {
+    const difference = sumtongfang - sumyifang; // 计算两个变量的差值，使用Math.abs确保结果非负
+
+    if (difference > 2 && difference <= 4) {
+        return "强";
+    } else if (difference > 0 && difference <= 2) {
+        return "强";
+    } else if (difference === 0) {
+        return "中和";
+    } else if (difference > 4 && difference <= 6) {
+        return "强";
+    }else if (difference >6 && difference < 20) {
+        return "强";
+    }else if (difference < 0 && difference >= -2) {
+        return "弱";
+    }else if (difference < -2 && difference >= -4) {
+        return "弱";
+    }else if (difference < -4 && difference >= -6) {
+        return "弱";
+    }else if (difference < -6 && difference >= -20) {
+        return "弱";
+    }
+}
+    function compareValues(sumtongfang, sumyifang) {
+    const difference = sumtongfang - sumyifang; // 计算两个变量的差值，使用Math.abs确保结果非负
+
+    if (difference > 2 && difference <= 4) {
+        return "强";
+    } else if (difference > 0 && difference <= 2) {
+        return "稍强";
+    } else if (difference === 0) {
+        return "中和";
+    } else if (difference > 4 && difference <= 6) {
+        return "很强";
+    }else if (difference >6 && difference < 20) {
+        return "极强";
+    }else if (difference < 0 && difference >= -2) {
+        return "稍弱";
+    }else if (difference < -2 && difference >= -4) {
+        return "弱";
+    }else if (difference < -4 && difference >= -6) {
+        return "很弱";
+    }else if (difference < -6 && difference >= -20) {
+        return "极弱";
+    }
+}
+function shunpaigetTianGan(startTianGan, count) {
+  const tianGan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+  let startIndex = tianGan.indexOf(startTianGan);
+  if (startIndex === -1) {
+    return [];
+  }
+  startIndex++;
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(tianGan[startIndex % 10]);
+    startIndex++;
+  }
+
+  return result.join(" ");
+}
+function nipaigetTianGan(startDiZhi, count) {
+  const tianGan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+  let startIndex = tianGan.indexOf(startDiZhi);
+  if (startIndex === -1) {
+    return '';
+  }
+
+  startIndex--; // 将 startIndex 调整到上一个地支
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    if (startIndex < 0) {
+      startIndex = 9; // 如果 startIndex 小于 0，则重新设置为最后一个地支的索引（11）
+    }
+    result.push(tianGan[startIndex]);
+    startIndex--;
+  }
+
+  return result.join(" ");
+}
+
+
+
+
+function shunpaigetDiZhi(startDiZhi, count) {
+  const diZhi = ['子' ,'丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+  let startIndex = diZhi.indexOf(startDiZhi);
+  if (startIndex === -1) {
+    return '';
+  }
+  startIndex++;
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(diZhi[startIndex % 12]);
+    startIndex++;
+  }
+
+  return result.join(" ");
+}
+function nipaigetDiZhi(startDiZhi, count) {
+  const diZhi = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+  let startIndex = diZhi.indexOf(startDiZhi);
+  if (startIndex === -1) {
+    return '';
+  }
+
+  startIndex--; // 将 startIndex 调整到上一个地支
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    if (startIndex < 0) {
+      startIndex = 11; // 如果 startIndex 小于 0，则重新设置为最后一个地支的索引（11）
+    }
+    result.push(diZhi[startIndex]);
+    startIndex--;
+  }
+
+  return result.join(" ");
+}
+
+function calculateAges(totalDaysToNextTerms, totalDaysToPreviousTerms) {
+
+  let ageshunpai = Math.floor(totalDaysToNextTerms / 3);
+  let agenipai = Math.floor(totalDaysToPreviousTerms / 3);
+  const remaindershunpai = totalDaysToNextTerms % 3;
+  const remaindernipai = totalDaysToPreviousTerms % 3;
+
+  if (remaindershunpai >= 2) {
+    ageshunpai += 1;
+  }
+
+  if (remaindernipai >= 2) {
+    agenipai += 1;
+  }
+
+  return [ageshunpai, agenipai];
+}
+
+
+
+function paidayun (gender){
+  
+  const monthtiangan0="<%= bazi.GanZhiMonth[0]%>"
+  const monthtiangan1="<%= bazi.GanZhiMonth[1]%>"
+  const yeartiangan0="<%= bazi.GanZhiYear[0] %>"
+  const totalDaysToNextTerms="<%= daysToNextTerm %>"
+  const totalDaysToPreviousTerms="<%= daysToPreviousTerm %>"
+  const yeartiangangender=getGender(yeartiangan0)
+  const tianGanshunpaiResult = shunpaigetTianGan(monthtiangan0, 8);
+  const diZhishunpaiResult = shunpaigetDiZhi(monthtiangan1, 8);
+  const tianGannipaiResult = nipaigetTianGan(monthtiangan0, 8);
+  const diZhinipaiResult = nipaigetDiZhi(monthtiangan1, 8);
+  const ageshunpai = Math.floor(totalDaysToNextTerms / 3);
+  const remaindershunpai = totalDaysToNextTerms % 3;
+  const yeartiangangenders=[yeartiangangender,gender]
+  const yeargender=yeartiangangenders.join("")
+  const agenipai = Math.floor(totalDaysToPreviousTerms / 3);
+  const remaindernipai = totalDaysToPreviousTerms % 3;
+
+
+
+  const paidayunqiyunData={
+    "阳男":ageshunpai,
+    "阳女":agenipai,
+    "阴男":agenipai,
+    "阴女":ageshunpai,
+  }
+  const paidayuntianganData={
+    "阳男":tianGanshunpaiResult,
+    "阳女":tianGannipaiResult,
+    "阴男":tianGannipaiResult,
+    "阴女":tianGanshunpaiResult,
+  }
+  const paidayundizhiData={
+    "阳男":diZhishunpaiResult,
+    "阳女":diZhinipaiResult,
+    "阴男":diZhinipaiResult,
+    "阴女":diZhishunpaiResult,
+  }
+ 
+return   [paidayuntianganData[yeargender],paidayundizhiData[yeargender],paidayunqiyunData[yeargender]]
+}
+
+function determineCharactershensha(dayGan, dayDiZhi) {
+  const characterMap = {
+    '甲': {
+      '丑': ['天乙贵人'],
+      '未': ['天乙贵人'],
+      '巳': ['文昌'],
+      '寅': ['干豫'],
+      '卯': ['羊刃'],
+      '午': ['红艳煞'],
+    },
+    '乙': {
+      '子': ['天乙贵人'],
+      '申': ['天乙贵人'],
+      '午': ['文昌','红艳煞'],
+      '卯': ['干豫'],
+      '辰': ['羊刃'],
+      
+    },
+    '丙': {
+      '亥': ['天乙贵人'],
+      '酉': ['天乙贵人'],
+      '申': ['文昌'],
+      '巳': ['干豫'],
+      '午': ['羊刃'],
+      '寅': ['红艳煞'],
+    },
+      '丁': {
+      '亥': ['天乙贵人'],
+      '酉': ['天乙贵人'],
+      '酉': ['文昌'],
+      '午': ['干豫'],
+      '未': ['羊刃','红艳煞'],
+    },
+    '戊': {
+      '丑': ['天乙贵人'],
+      '未': ['天乙贵人'],
+      '申': ['文昌'],
+      '巳': ['干豫'],
+      '午': ['羊刃'],
+      '辰': ['红艳煞'],
+    },
+    '己': {
+      '子': ['天乙贵人'],
+      '申': ['天乙贵人'],
+      '酉': ['文昌'],
+      '午': ['干豫'],
+      '未': ['羊刃'],
+      '辰': ['红艳煞'],
+    },
+    '庚': {
+      '丑': ['天乙贵人'],
+      '未': ['天乙贵人'],
+      '亥': ['文昌'],
+      '申': ['干豫'],
+      '酉': ['羊刃'],
+      '戌': ['红艳煞'],
+    },
+    '辛': {
+      '午': ['天乙贵人'],
+      '寅': ['天乙贵人'],
+      '子': ['文昌','红艳煞'],
+      '酉': ['干豫'],
+      '戌': ['羊刃'],
+    },
+    '壬': {
+      '巳':['天乙贵人'],
+      '卯': ['天乙贵人'],
+      '寅': ['文昌'],
+      '亥': ['干豫'],
+      '子': ['羊刃','红艳煞'],
+      
+    },
+    '癸': {
+      '巳': ['天乙贵人'],
+      '卯': ['天乙贵人','文昌'],
+      '子': ['干豫'],
+      '丑': ['羊刃'],
+      '申': ['红艳煞'],
+    },
+    
+    // 添加其他日干对应的地支条件
+    // ...
+  };
+const shensharesults=[]
+  if (dayGan in characterMap && dayDiZhi in characterMap[dayGan]) {
+     return characterMap[dayGan][dayDiZhi].join("、");
+  } else {
+    return [];
+  }
+
+}
+function determineCharactershenshadizhi(dayGan, dayDiZhi) {
+  const characterMap = {
+    '子': {
+      '子': ['将星'],
+      '辰': ['华盖'],
+      '寅': ['驿马'],
+      '酉': ['桃花'],
+      '巳': ['劫煞'],
+      '亥': ['亡神'],
+    },
+    '丑': {
+      '酉': ['将星'],
+      '丑': ['华盖'],
+      '亥': ['驿马'],
+      '午': ['桃花'],
+      '寅': ['劫煞'],
+      '申': ['亡神'],
+      
+    },
+    '寅': {
+      '午': ['将星'],
+      '戌': ['华盖'],
+      '申': ['驿马'],
+      '卯': ['桃花'],
+      '亥': ['劫煞'],
+      '巳': ['亡神'],
+    },
+      '卯': {
+      '卯': ['将星'],
+      '未': ['华盖'],
+      '巳': ['驿马'],
+      '子': ['桃花'],
+      '申': ['劫煞'],
+      '寅': ['亡神'],
+    },
+    '辰': {
+      '子': ['将星'],
+      '辰': ['华盖'],
+      '寅': ['驿马'],
+      '酉': ['桃花'],
+      '巳': ['劫煞'],
+      '亥': ['亡神'],
+    },
+    '巳': {
+      '酉': ['将星'],
+      '丑': ['华盖'],
+      '亥': ['驿马'],
+      '午': ['桃花'],
+      '寅': ['劫煞'],
+      '申': ['亡神'],
+    },
+    '午': {
+      '午': ['将星'],
+      '戌': ['华盖'],
+      '申': ['驿马'],
+      '卯': ['桃花'],
+      '亥': ['劫煞'],
+      '巳': ['亡神'],
+    },
+    '未': {
+      '卯': ['将星'],
+      '未': ['华盖'],
+      '巳': ['驿马'],
+      '子': ['桃花'],
+      '申': ['劫煞'],
+      '寅': ['亡神'],
+    },
+    '申': {
+      '丑': ['将星'],
+      '未': ['华盖'],
+      '巳': ['驿马'],
+      '寅': ['桃花'],
+      '卯': ['劫煞'],
+      '午': ['亡神'],
+      
+    },
+    '酉': {
+      '酉': ['将星'],
+      '丑': ['华盖'],
+      '亥': ['驿马'],
+      '午': ['桃花'],
+      '寅': ['劫煞'],
+      '申': ['亡神'],
+    },
+    '戌': {
+      '午': ['将星'],
+      '戌': ['华盖'],
+      '申': ['驿马'],
+      '卯': ['桃花'],
+      '亥': ['劫煞'],
+      '巳': ['亡神'],
+    },
+    '亥': {
+      '卯': ['将星'],
+      '未': ['华盖'],
+      '巳': ['驿马'],
+      '子': ['桃花'],
+      '申': ['劫煞'],
+      '寅': ['亡神'],
+    },
+    
+    // 添加其他日干对应的地支条件
+    // ...
+  };
+const shensharesults=[]
+  if (dayGan in characterMap && dayDiZhi in characterMap[dayGan]) {
+     return characterMap[dayGan][dayDiZhi].join("、");
+  } else {
+    return [];
+  }
+
+}
+
+  function exportTableToPDF() {
+    const table = document.getElementById('table1');
+    if (!table) {
+      console.error('表格不存在。');
+      return;
+    }
+
+    const doc = new jsPDF();
+    doc.autoTable({ html: table });
+
+    doc.save('table.pdf');
+  }
+
+
+
+
+
+    // 显示统计结果
+    function showResult() {
+  
+     
+      const fiveElementsCount = countFiveElements();
+      const fiveElementsCountes=determineRelationship(fiveElementsCount)
+      const fiveElementsCounts=fiveElementsCountes[0];
+      
+      const sumtongfang=fiveElementsCountes[1];
+const sumyifang=fiveElementsCountes[2]
+const rizhuqiangruo = compareValues(sumtongfang,sumyifang)
+const monthdizhicangdun = [
+            "<%= monthdizhicangdun[0]%>",
+            "<%= monthdizhicangdun[1]%>",
+            "<%= monthdizhicangdun[2]%>"
+        ];
+
+        // Create the combined string using template literals
+        const combinedString1 = `${monthdizhicangdun[0]}${monthdizhicangdun[1]}${monthdizhicangdun[2]}`;
+        const baziganzhi = [
+            "<%= bazi.GanZhiYear[0]%>",
+            "<%= bazi.GanZhiMonth[0]%>",
+            "<%= bazi.GanZhiDay[0]%>",
+            "<%= hourtiangandizhi[0]%>"
+        ];
+
+        // Create the combined string using template literals
+        const combinedString2 = `${baziganzhi[0]}${baziganzhi[1]}${baziganzhi[2]}${baziganzhi[3]}`;
+        const yuelingzhitou=hasCommonElement(combinedString1,combinedString2)
+      const yuelingzhitoutiangan=yuelingzhitou[0][0]
+      const yuelingzhitouindex=yuelingzhitou[0][1]
+      const yuelingzhitoubutou=findMostElement(fiveElementsCounts)
+      const geju=determineRelationshipyueling(yuelingzhitoutiangan,yuelingzhitouindex,yuelingzhitoubutou)
+      const yongshen=yongshenquyong(geju,yuelingzhitoubutou,sumtongfang,sumyifang)
+
+
+      const genders="<%= gender %>"
+      const paidayunResult=paidayun(genders)
+      const tianGanshunpaiResult =paidayunResult[0]
+      const diZhishunpaiResult = paidayunResult[1]
+      const qiyunsuishu=paidayunResult[2]
+      const paidayundaytiangan="<%=  bazi.GanZhiDay[0]%>"
+      const paidayunrelation=determineRelationshipdayun(paidayundaytiangan,tianGanshunpaiResult)
+
+      const yeardizhi="<%=bazi.GanZhiYear[1]  %>"
+const shensharesultyear=determineCharactershensha(paidayundaytiangan,yeardizhi)
+const monthdizhi="<%=bazi.GanZhiMonth[1]  %>"
+const shensharesultmonth=determineCharactershensha(paidayundaytiangan,monthdizhi)
+const daydizhi="<%=bazi.GanZhiDay[1]  %>"
+const shensharesultday=determineCharactershensha(paidayundaytiangan,daydizhi)
+const hourdizhi="<%= hourtiangandizhi[1] %>"
+const shensharesulthour=determineCharactershensha(paidayundaytiangan,hourdizhi)
+const shensharesultyear1=determineCharactershenshadizhi(daydizhi,yeardizhi)
+const shensharesultmonth1=determineCharactershenshadizhi(daydizhi,monthdizhi)
+const shensharesulthour1=determineCharactershenshadizhi(daydizhi,hourdizhi)
+
+const totalDaysToNextTerms="<%= daysToNextTerm %>"
+  const totalDaysToPreviousTerms="<%= daysToPreviousTerm %>"
+
+
+// 假设resultHTML和resultHTML2分别是第一个表格和第二个表格的内容
+let resultHTML = '<table>';
+resultHTML += '<tr><th>强弱分析</th><th>数量</th><th>日主同方数量</th><th>日主异方数量</th></tr>';
+
+for (const element in fiveElementsCounts) {
+  const count = fiveElementsCounts[element];
+  const category = element.replace(/\([^)]*\)/g, '');
+
+  resultHTML += `<tr><td>${element}</td><td class="merged-cell2">${fiveElementsCounts[element]}</td>
+    <td class="merged-cell4">${category === '火' ? '格局 : ' + geju + '' : ''}</td>
+    <td class="merged-cell4">${category === '火' ? '用神取用 : ' + yongshen + '' : ''}</td>
+    </tr>`;
+}
+
+resultHTML += '<tr><td class="merged-cell1">日主强弱：' + rizhuqiangruo + '</td><td class="merged-cell2">总计</td><td class="merged-cell3">' + sumtongfang + '</td><td class="merged-cell2">' + sumyifang + '</td></tr>';
+
+resultHTML += '</table>';
+let resultHTML2 = '<table>';
+
+const columns = tianGanshunpaiResult.split(' ');
+const elements=diZhishunpaiResult.split(" ")
+const shishenelements=paidayunrelation.split(" ")
+
+resultHTML2 += '<tr>';
+  resultHTML2 += `<th class="merged-cell5">起运</th>`;
+for (let i = 0; i < 8; i++) {
+  const age = qiyunsuishu + 10 * i;
+  resultHTML2 += `<td class="merged-cell5">${age}岁</td>`;
+}
+resultHTML2 += '</tr>';
+
+resultHTML2 += '<tr>';
+  resultHTML2 += `<th class="merged-cell5">十神</th>`;
+for (const shishenelement of shishenelements) {
+  resultHTML2 += `<td class="merged-cell5">${shishenelement}</td>`;
+}
+resultHTML2 += '</tr>';
+
+
+
+resultHTML2 += '<tr>';
+  resultHTML2 += `<th class="merged-cell5">大</th>`;
+for (const column of columns) {
+  resultHTML2 += `<td class="merged-cell5">${column}</td>`;
+}
+resultHTML2 += '</tr>';
+resultHTML2 += '<tr>';
+  resultHTML2 += `<th class="merged-cell6">运</th>`;
+for (const element of elements) {
+  resultHTML2 += `<td class="merged-cell6">${element}</td>`;
+}
+resultHTML2 += '</tr>';
+
+resultHTML2 += '</table>';
+
+
+ let resultHTML3 ='<tr>'
+  resultHTML3 += ` <td class="merged-cell1"><%=  %>神煞(见日主天干)</td><td class="merged-cell6" colspan="2">${shensharesultyear}</td><td class="merged-cell6" colspan="2">${shensharesultmonth}</td><td class="merged-cell6" colspan="2">${shensharesultday}</td><td class="merged-cell6" colspan="2">${shensharesulthour}</td>`;
+resultHTML3+='</tr>'
+let resultHTML4 ='<tr>'
+  resultHTML4 += ` <td class="merged-cell1"><%=  %>神煞(见日主地支)</td><td class="merged-cell6" colspan="2">${shensharesultyear1}</td><td class="merged-cell6" colspan="2">${shensharesultmonth1}</td><td class="merged-cell6" colspan="2"></td><td class="merged-cell6" colspan="2">${shensharesulthour1}</td>`;
+resultHTML4+='</tr>'
+
+
+
+
+const resultContainer1 = document.getElementById('resultContainer1');
+const shensharesult=document.getElementById("shensharesult")
+const shensharesult1=document.getElementById("shensharesult1")
+
+
+
+
+resultContainer1.innerHTML = resultHTML+resultHTML2
+shensharesult.innerHTML=resultHTML3
+shensharesult1.innerHTML=resultHTML4
+// 导出表格为PDF的函数
+
+
+// 绑定函数到导出按钮
+
+
+
+
+
+        }
+
+    // 调用显示结果函数
+    showResult();
+</script>
+</html>

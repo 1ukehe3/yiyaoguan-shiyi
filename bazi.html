@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f0f0;
+          text-align: center;
+        }
+        
+        h1 {
+          color: #333;
+        }
+        
+        .container {
+          margin: 50px auto;
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        select{
+            width: 240px;
+            height: 30px;
+        }
+        .gender-radio label {
+      margin-right: 20px;
+    }
+      </style>
+  <title>八字排盘</title>
+</head>
+<body>
+    <div class="container">
+  <h1>八字排盘</h1>
+  <form action="/result" method="GET" >
+    <div class="custom-select">
+        <label for="year">年份：</label>
+        <select id="year" name="year" required><option value="">请选择</option></select>
+        <br><br>
+        <label for="month">月份：</label>
+        <select id="month" name="month" required><option value="">请选择</option></select><br><br>
+        <label for="day">日期：</label>
+        <select id="day" name="day" required><option value="">请选择</option></select><br><br>
+        <label for="hour">小时：</label>
+        <select id="hour" name="hour" required><option value="">请选择</option></select><br><br>
+        <label for="gender">性别：</label>
+        <select id="gender" name="gender" required>
+          <option value="">请选择</option>
+          <option value="男">男</option>
+          <option value="女">女</option>
+        </select><br><br>
+     
+       
+     
+    </div>
+   
+  
+   
+    <span id="error" style="color: red;"></span>
+    <br><br>
+    <button type="submit" id='submit-button'>提交</button>    <button id="returnButton">返回</button>
+  </form>
+    </div>
+ 
+</body>
+</html>
+<script>
+   var returnButton = document.getElementById("returnButton");
+
+// 添加点击事件监听器
+returnButton.addEventListener("click", function() {
+    // 执行返回操作，导航到指定网页地址
+    window.location.href = "http://127.0.0.1:5500/%E7%BD%91%E9%A1%B5/app/index.html";
+});
+   // 获取当前年份和月份
+   const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+
+    // 设置年份下拉框选项
+    const yearSelect = document.getElementById('year');
+    yearSelect.options[0].selected = true; // 将空选项设为默认选中
+    for (let year = 1900; year <= currentYear; year++) {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      yearSelect.appendChild(option);
+    }
+
+    // 设置月份下拉框选项
+    const monthSelect = document.getElementById('month');
+    monthSelect.options[0].selected = true; // 将空选项设为默认选中
+    for (let month = 1; month <= 12; month++) {
+      const option = document.createElement('option');
+      option.value = month;
+      option.textContent = month;
+      monthSelect.appendChild(option);
+    }
+
+    // 根据选中的年份和月份设置日期下拉框选项
+    function updateDateOptions() {
+      const year = parseInt(yearSelect.value);
+      const month = parseInt(monthSelect.value);
+
+      const dateSelect = document.getElementById('day');
+   
+
+      // 获取指定年份和月份的最后一天日期
+      const lastDay = new Date(year, month, 0).getDate();
+
+      // 设置日期下拉框选项
+      for (let day = 1; day <= lastDay; day++) {
+        const option = document.createElement('option');
+        option.value = day;
+        option.textContent = day;
+        dateSelect.appendChild(option);
+      }
+    }
+
+    // 设置时间下拉框选项
+    const hourSelect = document.getElementById('hour');
+    hourSelect.options[0].selected = true; // 将空选项设为默认选中
+    for (let hour = 1; hour <= 24; hour++) {
+      const option = document.createElement('option');
+      option.value = hour;
+      option.textContent = hour;
+      hourSelect.appendChild(option);
+    }
+
+    // 根据选中的年份和月份更新日期选项
+    yearSelect.addEventListener('change', updateDateOptions);
+    monthSelect.addEventListener('change', updateDateOptions);
+
+    
+
+
+
+
+
+
+    
+  
+
+
+</script>

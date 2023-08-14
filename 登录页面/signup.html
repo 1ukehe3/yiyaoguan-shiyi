@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>注册</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #f2f2f2, #fff);
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .login-container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 120px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+            animation: slide-up 0.5s ease;
+        }
+        
+        .login-container h2 {
+            text-align: center;
+           
+            margin-top: -60px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-top: 20px;
+            margin-right: 50px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: px;
+            color: #666;
+        }
+        
+        .form-group input {
+            width: 120%;
+            padding: 15px;
+            
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2980B9;
+        }
+        
+        .form-group button {
+            margin-top: 20px;
+            margin-bottom: -20px;
+            width: 130%;
+            padding:10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #e60029;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .form-group button:hover {
+            background-color: #d40023;
+        }
+        
+        @keyframes slide-up {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .form-group additional-options {
+            
+            margin-top: 5px;
+        }
+        #form-group-a{
+         display: flex;
+        
+           
+            
+        }
+        #form-group-a input[type="text"] {
+         flex: 1;
+         margin-left: 20px;
+         margin-right: -40px;
+         margin-top: 20px;
+            margin-bottom: -20px;
+        width:60%;
+            padding:10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+}
+        #send-code{
+          width: 40%;
+          margin-top: 20px;
+            margin-bottom: -20px;
+        
+            padding:10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #e60029;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .additional-options-one{
+            color: #2980B9;
+            margin-left: 80px;
+            text-decoration: none;
+        }
+        .additional-options-two{
+            color: #2980B9;
+            text-decoration: none;
+        }
+        .additional-options-three{
+            color: #2980B9;
+            text-decoration: none;
+        }
+        .input-error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .error-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      font-size: 10px;
+    }
+    #countdown {
+        position: fixed;
+        font-size: 2px;
+      margin-top: 60px;
+      margin-left: 180px;
+    }
+    </style>
+</head>
+<body>
+    <div  id="registrationForm" class="login-container">
+        <h2>立即注册</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username"></label>
+                <input type="text" id="username" name="username"  placeholder="请输入用户名" >
+                <span id="usernameError" class="input-error"></span>
+            </div>
+            <div class="form-group">
+                <label for="password"></label>
+                <input type="password" id="password" name="password" placeholder="请输入密码" >
+                <span id="passwordError" class="input-error"></span>
+            </div>
+            <div class="form-group">
+                <label for="phone"></label>
+                <input type="text" id="phone" name="phone" placeholder="请输入手机号码" >
+                <span id="phoneError" class="input-error"></span>
+            </div>
+            <div  id="form-group-a">
+                <label for="verification-code"></label>
+                <button type="button" id="send-code" onclick="sendVerificationCode()" >发送验证码</button>
+                <input type="text" id="verification-code" name="verification-code" placeholder="请输入验证码" required></br>
+                <div id="countdown"></div>
+                
+            </div>
+            <div class="form-group">
+                <button type="button" id='submit-button'  onclick="registerVerificationCode()">注册</button>
+            </div>
+           
+            </form>
+            <div class="form-group additional-options">
+                <a class="additional-options-one" href="./login.html">立即登录 | </a>
+                <a class="additional-options-two" href="#">忘记密码  |</a>
+                <a class="additional-options-three" href="#">修改密码  </a>
+            </div>
+    </div>
+    <div class="error-popup" id="errorPopup" style="display: none;"></div>
+<script>
+
+
+
+</script>
+
+
+    <script>
+        let users=[];
+         let userData = {};
+         let isVerificationCodeSent = false;
+    let countdownTime = 60;
+    function startCountdown() {
+      const countdownElement = document.getElementById('countdown');
+      countdownElement.textContent = `在${countdownTime}秒后，可重新发送验证码`;
+
+      const countdownInterval = setInterval(() => {
+        countdownTime--;
+
+        if (countdownTime >= 0) {
+          countdownElement.textContent = `在${countdownTime}秒后，可重新发送验证码`;
+        } else {
+          clearInterval(countdownInterval);
+          countdownElement.textContent = '';
+          isVerificationCodeSent = false;
+          countdownTime = 60;
+        }
+      }, 1000); // 每秒更新一次
+    }
+    
+function sendVerificationCode() {
+    if (isVerificationCodeSent) {
+        return;
+      }
+    const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const phone = document.getElementById('phone').value;
+      const verificationCode = document.getElementById('verification-code').value;
+     
+    // 构建请求参数
+    const requestData = {
+      phone: phone
+    };
+
+      const usernameError = document.getElementById('usernameError');
+   if (!username) {
+  usernameError.textContent = '请填写用户名';
+  usernameError.style.display = 'block';
+  clearVerificationCodeInput()
+  return;
+} else if (/[!@#$%^&*(),.?":{}|<>]/.test(username)) {
+  usernameError.textContent = '用户名不能包含特殊字符';
+  usernameError.style.display = 'block';
+  clearVerificationCodeInput()
+  return;
+} else {
+  usernameError.style.display = 'none';
+ 
+}
+    // 验证密码是否填写和格式是否正确
+    const passwordError = document.getElementById('passwordError');
+    if (username && (!password || password.length < 8 || !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/.test(password))) {
+      passwordError.textContent = '密码长度不能小于8个字符，且必须包含字母和数字';
+      passwordError.style.display = 'block';
+      clearVerificationCodeInput()
+      return;
+    } else {
+      passwordError.style.display = 'none';
+    }
+    // 验证手机号码是否填写和格式是否正确
+    const phoneError = document.getElementById('phoneError');
+    if (!phone || !/^1\d{10}$/.test(phone)) {
+      phoneError.textContent = '请输入有效的手机号码';
+      phoneError.style.display = 'block';
+      clearVerificationCodeInput()
+      return;
+    } else {
+      phoneError.style.display = 'none';
+    }
+    // 发起 POST 请求到发送验证码接口
+    fetch('http://localhost:3002/sendVerificationCode', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestData)
+    })
+    .then(response => {
+      if (response.ok) {
+       
+        
+        // 在这里执行成功的逻辑，例如显示提示消息等
+        alert('验证码已发送，请查收');
+      } else {
+        console.error('发送验证码请求失败');
+        // 在这里执行失败的逻辑，例如显示错误消息等
+        alert('验证码请求失败，请重试');
+      }
+    })
+    .catch(error => {
+      console.error('发送验证码请求失败:', error);
+      // 在这里执行失败的逻辑，例如显示错误消息等
+      alert('发生错误，请稍后再试');
+      
+    });
+    isVerificationCodeSent = true;
+    startCountdown();
+
+    }
+
+
+  // 点击发送验证码按钮
+
+
+ 
+  const sendButton = document.getElementById('send-code');
+  sendButton.addEventListener('click', function() {
+   
+
+    // 发送验证码请求
+    sendVerificationCode();
+
+  });
+
+
+
+    function registerVerificationCode() {
+
+      // 构建请求参数
+      const verificationCode = document.getElementById('verification-code').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const phone = document.getElementById('phone').value;
+    
+
+      // 将验证码和用户信息发送到后端
+      const requestData = {
+        verificationCode: verificationCode,
+        username: username,
+        password:password,
+        phone:phone,
+      };
+   // 检查用户名是否已存在
+   const existingUsername = users.find(user => user.username === username);
+    if (existingUsername) {
+      return res.status(400).json({ exists: true, message: '用户名已存在' });
+    }
+  
+    // 检查手机号是否已存在
+    const existingPhone = users.find(user => user.phone === phone);
+    if (existingPhone) {
+      return res.status(400).json({ exists: true, message: '手机号已存在' });
+    }
+  
+    // 检查密码是否已存在
+    const existingPassword = users.find(user => user.password === password);
+    if (existingPassword) {
+      return res.status(400).json({ exists: true, message: '密码已存在' });
+    } 
+
+  
+      
+   
+
+      // 发起 POST 请求到发送验证码接口
+      fetch('http://localhost:3002/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestData)
+  })
+    .then(response =>{ 
+    if (response.ok) {
+          console.log('注册成功,请登录');
+          // 在这里执行成功的逻辑，例如显示提示消息等
+          handleRegistrationSuccess()
+          alert('注册成功，请登录');
+         usersDate()
+
+          return response.json();
+        } else if (response.status === 400) {
+    
+    
+    clearVerificationCodeInput()
+   
+    return response.json().then(data => {
+      throw new Error(data.message);
+    });
+  } else {
+    
+    throw new Error('服务器错误');
+  }
+    
+    })
+    
+    .catch(error => {
+        clearVerificationCodeInput()
+      console.error('注册请求发生错误:', error);
+      showErrorPopup(error.message);
+    });
+    }
+    function clearVerificationCodeInput() {
+      const verificationCodeInput = document.getElementById('verification-code');
+      verificationCodeInput.value = '';
+    }
+
+
+          // 提交注册表单
+          const submitButton=document.getElementById("submit-button");
+
+          submitButton.addEventListener("click", function() {
+       
+
+        // 获取表单字段的值
+     
+
+        
+//发送注册请求
+      registerVerificationCode()
+    
+});
+function usersDate (){
+    const username=userData.username;
+const password=userData.password;
+const phone =userData.phone;
+const newUser = { username, password, phone };
+  // 将新用户添加到数组中
+           users.push(newUser);
+          
+}
+
+      function handleRegistrationSuccess() {
+  // 执行跳转到登录页面的操作
+  window.location.href = '/网页/app/登录/login.html';
+}
+function showErrorPopup(message) {
+      const errorPopup = document.getElementById('errorPopup');
+      errorPopup.textContent = message;
+      errorPopup.style.display = 'block';
+
+      // 自动关闭弹窗
+      setTimeout(() => {
+        errorPopup.style.display = 'none';
+      }, 3000); // 3秒后自动关闭
+    }
+
+</script>
+</body>
+</html>

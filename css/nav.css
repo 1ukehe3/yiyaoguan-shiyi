@@ -1,0 +1,324 @@
+#header {
+    width: 100%;
+    background-color: #333;
+    height: 25px;
+    position:fixed;
+   top: 0;
+    left:0;
+   z-index: 1;
+    
+  }
+
+ 
+#header ul   {
+  display: flex;
+ justify-content: flex-end;
+ align-items:center;
+ margin-top: 3px;
+}
+#header ul li{
+  display:flex;
+margin: 0px;
+color:#fff;
+
+
+}
+#header  span{
+ 
+  font-size: 0.5rem;
+  margin: 0 5px;
+
+}
+#header ul li  p{
+ 
+  color: #fff;
+  font-weight: 300;
+  
+  font-size: 0.58rem;
+
+ margin-right: 40px;
+}
+
+#navbarSupportedContent{
+
+    position:fixed;
+ 
+    width:100%;
+   height: 20px;
+  top: 25px;
+  display: flex;
+  flex-direction: row;
+
+  }
+  @media (max-width:992px) {
+    #logo{
+      display: none;
+
+    }
+    #navbarSupportedContent{
+      display: none;
+    }
+  }
+
+  #fixnav  {
+   list-style: none;
+    text-align: center;
+    display: block;
+    flex-direction: row;
+ margin-left: 205px;
+  height: 60px;
+  padding: 0; 
+ 
+    padding-top: 40px;
+   margin-bottom:0px;
+   margin-top: 80px;
+  
+  }
+
+
+
+  
+  #logos{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateY(-300%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 0.8s; /* 过渡效果 */
+margin-top: 5px;
+margin-left: 5px;
+    width: 100px;
+    height: 100px;
+  }
+  #logos.show {
+    opacity: 1; /* 显示时透明度为1 */
+    transform: translateX(0); /* 不再偏移，即从左侧进入 */
+    animation: bounceUpAndDown 1.5s ease-in-out ;
+}
+@keyframes bounceUpAndDown {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(20%);
+  }
+  100% {
+    transform: translateY(0);
+}
+}
+  #fixnav span{
+
+  list-style: none;
+    display: block;
+  margin-top: 40px;
+      padding:0 38px;	
+    
+      padding-bottom: 10px;
+     background-color:rgba(256,256,256,0.3);
+      font-size:1.06rem;
+   height: 60px;
+      text-decoration:none;
+     border-radius: 5%;
+     font-family:  Roboto Slab, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;;
+    font-weight: 530;
+    padding-top: 18px;
+    text-decoration: none;
+    }
+
+    #fixnav span {
+      opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+      transform: translateX(-300%); /* 初始时向左偏移100% */
+      transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+
+  #fixnav span.show {
+      opacity: 1; /* 显示时透明度为1 */
+      transform: translateX(0); /* 不再偏移，即从左侧进入 */
+  }
+  #fixnav span a{
+    color: #000;
+    text-decoration: none;
+}
+    #fixnav a:hover{
+        cursor: pointer;
+    border-bottom: cornflowerblue 2px solid;
+    }
+    
+    #masthead-subheading0{
+      opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+      transform: translateY(700%); /* 初始时向左偏移100% */
+      transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+    }
+    #masthead-subheading0.show {
+      opacity: 1; /* 显示时透明度为1 */
+      transform: translateY(0); /* 不再偏移，即从左侧进入 */
+      
+  }
+  #masthead-heading0{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateY(-700%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  #masthead-heading0.show {
+    opacity: 1; /* 显示时透明度为1 */
+    transform: translateY(0); /* 不再偏移，即从左侧进入 */
+
+}
+
+
+
+#glass-button{
+  display: inline-block;
+  
+  text-decoration: none;
+  transform: translateX(400%); /* 初始时向左偏移100% */
+  transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+}
+
+#glass-button.show{
+ 
+  text-decoration: none;
+  opacity: 1; /* 显示时透明度为1 */
+  transform: translateX(0); /* 不再偏移，即从左侧进入 */
+}
+
+
+    #masthead-subheading1{
+      display: none;
+     
+    }
+    
+    #masthead-heading1{
+      display: none;
+      
+    }
+    #masthead-subheading2{
+      display: none;
+    }
+    #masthead-heading2{
+      display: none;
+    }
+    #masthead-subheading3{
+      display: none;
+    }
+    #masthead-heading3{
+      display: none;
+    }
+    #masthead-subheading4{
+      display: none;
+    }
+    #masthead-heading4{
+      display: none;
+    }
+
+    img.logosbig{
+      width: 30px;
+      height: 30px;
+      border: none;
+    }
+    .hidden-content {
+      display: none;
+  }
+  .liuyaocheguacontent:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #f7b910;
+  }
+  .chuxiandonghua{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateX(-100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghua.show{
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  .chuxiandonghuax{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateX(100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuax.show{
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  .chuxiandonghuay{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateY(100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuay.show{
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+  .chuxiandonghuaxxx{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateX(-100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuaxxx.show{
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  .chuxiandonghuax-2{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateX(100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuax-2.show{
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  .chuxiandonghuay-2{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateY(100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuay-2.show{
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+  .chuxiandonghuaxxx-2{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateX(-100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuaxxx-2.show{
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  .chuxiandonghuax-1{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateX(100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuax-1.show{
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  .chuxiandonghuay-1{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateY(100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuay-1.show{
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+  .chuxiandonghuaxxx-1{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateX(-100%); /* 初始时向左偏移100% */
+    transition: opacity 0.1s, transform 1.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuaxxx-1.show{
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  .chuxiandonghuaC{
+    opacity: 0; /* 初始时透明度为0，即隐藏状态 */
+    transform: translateX(100%); /* 初始时向左偏移100% */
+    transition: opacity 1s, transform 2.0s; /* 过渡效果 */
+  }
+  .chuxiandonghuaC.show{
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+

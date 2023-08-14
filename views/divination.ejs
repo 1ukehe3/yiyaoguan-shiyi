@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>六爻测卦</title>
+</head>
+<body>
+  <h1>六爻测卦结果</h1>
+  <h2>卦名: <%= gua.name %></h2>
+  <p>卦象: <%= gua.description %></p>
+  <h3>爻：</h3>
+  <% for (let i = 0; i < yaoList.length; i++) { %>
+    <p>第 <%= i+1 %> 爻：<%= yaoList[i] %></p>
+  <% } %>
+</body>
+</html>
+
