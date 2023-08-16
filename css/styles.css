@@ -10,18 +10,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
- .preload0{
-  background-image: url('../assets/img/nav/1.jpg');
-opacity: 0;
-}
-.preload1{
-  background-image: url('../assets/img/nav/3.jpg');
-opacity: 0;
-}
-.preload2{
-  background-image: url('../assets/img/nav/4.jpg');
-opacity: 0;
-}
+ 
 
 :root {
   --bs-blue: #0d6efd;
@@ -11394,7 +11383,7 @@ p {
   color: #ffc800;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1400px) {
   #mainNav .navbar-nav .nav-item .nav-link{
     opacity: 0;
   }
@@ -11446,7 +11435,7 @@ header.masthead {
   background-attachment: scroll;
   background-position: center center;
   background-size: cover;
-  animation: slideBackground 8s ease-in-out infinite  alternate;
+  
 }
 
 @keyframes slideBackground {
